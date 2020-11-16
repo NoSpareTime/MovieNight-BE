@@ -1,0 +1,29 @@
+name: .NET Core
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+      - uses: 5monkeys/cobertura-action@master
+        name: Publish Code Coverage
+        with:
+          path: Tests/**/*.cobertura.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

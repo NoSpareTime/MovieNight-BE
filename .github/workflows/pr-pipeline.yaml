@@ -28,3 +28,4 @@ jobs:
         with:
           path: "Tests/**/*.cobertura.xml"
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 0

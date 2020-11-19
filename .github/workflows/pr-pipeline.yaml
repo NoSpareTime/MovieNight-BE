@@ -21,10 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.100
       - name: Install Reportgenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.7.1
       - name: Test
         run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+      - name: Display Corbertura Files
+        run: find . -iregex '.*\.\(xml\)' -printf '%f\n'
       - name: Generate Reports
         run: reportgenerator -reports:/**/coverage.cobertura.xml -targetdir:coverlet/reports -reporttypes:"Cobertura"
       - uses: 5monkeys/cobertura-action@master

@@ -26,6 +26,6 @@ jobs:
       - uses: 5monkeys/cobertura-action@master
         name: Publish Code Coverage
         with:
-          path: "Tests/**/*.cobertura.xml"
+          path: ${{"Tests/**/*.cobertura.xml"}}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_coverage: 0

@@ -26,7 +26,7 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
       - name: Generate Reports
-        run: reportgenerator -reports:./Tests/**/coverage.cobertura.xml -targetdir:coverlet/reports -reporttypes:"Cobertura"
+        run: reportgenerator -reports:/**/coverage.cobertura.xml -targetdir:coverlet/reports -reporttypes:"Cobertura"
       - uses: 5monkeys/cobertura-action@master
         name: Publish Code Coverage
         with:
